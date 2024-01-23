@@ -53,6 +53,13 @@ class LRUCache {
             head = head.next;
             currIndex++;
         }
+    };
+
+    addNewValue(value) {
+        // add value to head of cacheList
+        const newHead = new ListNode(value, this.cacheList);
+        this.cacheList = newHead;
+        this.rebuildCacheMap();
     }
 
     refer(value) {
@@ -66,35 +73,15 @@ class LRUCache {
         }
 
         const listIndex = this.cacheMap[value];
-        // if value already in list, delete it from existing position
-        if (listIndex > -1)  {
+        if (listIndex > -1)  { // value already in list, delete it from existing position
             this.deleteCacheListNode(listIndex);
-        } else {
-            // value is net net, so increase cacheSize
+        } else if (this.cacheSize < this.capacity) { // value is net new, so increase cacheSize
             this.cacheSize++;
+        } else { // delete last node in list
+            const listLength = Object.keys(this.cacheMap).length;
+            this.deleteCacheListNode(listLength - 1);
         }
-
-        // add value to head of cacheList
-        const newHead = new ListNode(value, this.cacheList);
-        this.cacheList = newHead;
-        this.rebuildCacheMap();
-
-        // if cache size exceeds capacity, delete extra tails nodes
-        if (this.cacheSize > this.capacity) {
-            let index = 0;
-            let head = this.cacheList;
-            while (head) {
-                if (index === this.capacity - 1) {
-                    head.next = null;
-                    this.rebuildCacheMap();
-                    // cacheSize should now equal capacity
-                    this.cacheSize = this.capacity;
-                    return;
-                }
-                head = head.next;
-                index++;
-            }
-        }
+        this.addNewValue(value);
         return;
     }
 }
