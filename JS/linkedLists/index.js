@@ -164,7 +164,8 @@ const reverseList = (list) => {
         curr.next = prev;
         prev = curr;
         curr = next;
-    }
+    };
+
     return prev;
 };
 
@@ -209,3 +210,63 @@ const runReverseListTestCases = (testCases) => {
 
 console.log('reverseListTestCases START')
 runReverseListTestCases(reverseListTestCases);
+
+/**
+ * 876. Middle of the Linked List
+ * Given the head of a singly linked list, return the middle node of the linked list.
+ * If there are two middle nodes, return the second middle node. 
+ * 
+ * Input: head = [1,2,3,4,5]
+ * Output: [3,4,5] <-- this represents a linked list not an array
+ * Explanation: The middle node of the list is node 3.
+ * 
+ * Input: head = [1,2,3,4,5,6]
+ * Output: [4,5,6]
+ * Explanation: Since the list has two middle nodes with values 3 and 4, we return the second one.
+ * 
+ */
+const middleNode = (head) => {
+    let map = {};
+    let index = 0;
+    let list = head;
+    while (list) {
+        map[index] = list;
+        list = list.next;
+        index++; 
+    }
+    const length = Object.keys(map).length;
+    const mid = Math.floor(length / 2);
+    return map[mid];
+};
+
+const testMiddleNode = () => {
+    const tests = [
+        {
+            input: new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))))),
+            expected: new ListNode(3, new ListNode(4, new ListNode(5)))
+        },
+        {
+            input: new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5, new ListNode(6)))))),
+            expected: new ListNode(4, new ListNode(5, new ListNode(6)))
+        }
+    ];
+    for (testCase of tests) {
+        let { input, expected }= testCase;
+        const result = middleNode(input);
+        let list = result;
+        while (list) {
+            if (list.val !== expected.val) {
+                console.log(`FAIL: list ${list.val} did not equal expected ${expected.val}`)
+            }
+            list = list.next;
+            expected = expected.next;
+        }
+        console.log(`PASS: result list is equal to expected list`)
+    }
+    return console.log('testMiddleNode END')
+}
+
+console.log('testMiddleNode START')
+testMiddleNode();
+
+
