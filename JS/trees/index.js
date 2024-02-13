@@ -7,34 +7,24 @@ const BFS = (root) => {
     let queue = [root];
     let result = [];
     while (queue.length) {
-        const curr_node = queue.shift();
-        result.push(curr_node.val)
+        const curr = queue.shift();
+        result.push(curr.val)
 
-        if (curr_node.left) {
-            queue.push(curr_node.left)    
+        if (curr.left) {
+            queue.push(curr.left)    
         }
-        if (curr_node.right) {
-            queue.push(curr_node.right)    
+        if (curr.right) {
+            queue.push(curr.right)    
         }
     }
     return result;
 };
 
-
-
-
-
-
-
-
-
-
-
 /**
  * Tests
  */
 
-const BFSInputs = [
+const trees = [
     { 
         val: 1,
         left: {
@@ -80,8 +70,8 @@ const BFSAnswers = [
 
 const BFSTests = () => {
     let results = [];
-    for (let i = 0; i < BFSInputs.length; i++) {
-        const userAnswers = BFS(BFSInputs[i]);
+    for (let i = 0; i < trees.length; i++) {
+        const userAnswers = BFS(trees[i]);
         let passed = true;
         for (let j = 0; j < BFSAnswers[i].length; j++) {
             if (BFSAnswers[i][j] !== userAnswers[j]) {
@@ -98,3 +88,55 @@ const BFSTests = () => {
 };
 
 console.log(BFSTests());
+
+
+/**
+ * Implement DFS PreOrder
+ */
+const DFS = (root) => {
+    let stack = [root];
+    let result = [];
+    
+    while (stack.length) {
+        let curr = stack.pop();
+        result.push(curr.val);
+        if (curr.right) {
+            stack.push(curr.right);
+        }
+        if (curr.left) {
+            stack.push(curr.left);
+        }
+    }
+    return result;
+    
+}
+
+// Pre-Order
+const DFSAnswers = [
+    [1,2,4,3,5],
+    [],
+    [1,2,3]
+];
+
+// Pre-Order
+const DFSTests = () => {
+    let results = [];
+    for (let i = 0; i < trees.length; i++) {
+        const userAnswers = DFS(trees[i]);
+        let passed = true;
+        for (let j = 0; j < DFSAnswers[i].length; j++) {
+            if (!userAnswers || DFSAnswers[i][j] !== userAnswers[j]) {
+                passed = false;
+            }
+        }
+        if (passed) {
+            results.push(`PASSED: Test Answer: ${DFSAnswers[i]} === User Answers: ${userAnswers}`)
+        } else {
+            results.push(`FAILED: Test Answer: ${DFSAnswers[i]} !== User Answers: ${userAnswers}`);
+        }
+    }
+    return results;
+};
+
+console.log(DFSTests());
+

@@ -127,14 +127,6 @@ function flatten2(arr) {
 // console.log(flatten2([1, [2, 3], [[4]]]), [1,2,3,4])
 
 /**
- * Find the Maximum Number in a List
- */
-
-/**
- * Implement 3 Fibonacci Sequences in 3 Methods
- */
-
-/**
  * Balanced Brackets
  * Hacker Rank
  */
@@ -366,21 +358,6 @@ function mergeSortedLists(l1, l2) {
 }
 // console.log(mergeSortedLists([1,2,3], [4,5,6]), [1,2,3,4,5,6])
 // console.log(mergeSortedLists([1,2,3], [2,5,6]), [1,2,2,3,5,6])
-
-
-/**
- * Design a system that evaluates the effectiveness of a Google add campaign.
- * How would you release a fix for a SDK?
- */
-
-/**
- * Grid BFS and sorting related problem
- */
-
-/*
-*A hard DFS leetCode question. 
-*/
-
 
 /**
  * Given an n x n binary matrix grid, return the length of the shortest clear path in the matrix. If there is no clear path, return -1.
